@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+		<title>Document</title>
+	</head>
+	<style type="text/css">
+		* {
+			margin: 0px;
+			padding: 0px;
+			color: white;
+			font-size: 20px;
+		}
+		
+		body {
+			height: 100vh;
+			width: 100vw;
+			background: url(img.jpg);
+			overflow: hidden;
+		}
+		
+		#box {
+			height: 773px;
+			width: 600px;
+			background: rgba(0, 0, 0, 0.5);
+			position: absolute;
+			top: 50%;
+			left: 50%;
+			transform: translate(-50%, -50%);
+		}
+		
+		#top {
+			padding-top: 20px;
+			margin-top: 3px;
+			display: flex;
+			height: 30px;
+			justify-content: space-around;
+			padding-bottom: 3px;
+			border-top: 2px solid gray;
+			align-items: center;
+		}
+		
+		#top span {
+			cursor: pointer;
+		}
+		
+		#xq {
+			margin-top: 15px;
+			display: flex;
+			justify-content: space-around;
+		}
+		
+		#rl-ri {
+			position: absolute;
+			display: flex;
+			flex-wrap: wrap;
+		}
+		
+		.ri{
+			line-height: 85px;
+			text-align: center;
+			width: 85px;
+			height: 85px;
+			transition: all 0.25s linear;
+			cursor: pointer;
+			font-size: 30px;
+			font-weight: bold;
+			z-index: 2;
+		}
+		#select{
+			position: absolute;
+			width: 85px;
+			height: 85px;
+			box-shadow: inset 0px 0px 5px 3px white;
+			z-index: 1;
+			transition: all 0.5s;
+		}
+		.ri:hover {
+			
+		}
+		#timer{
+			text-indent: 40px;
+			font-size: 60px;
+			line-height: 150px;
+			height: 150px;
+		}
+	</style>
+
+	<body>
+		<div id="box">
+			<div id="timer">
+				00:00:00
+			</div>
+			<div id="top">
+				<span id="top-rq">0000年0月</span>
+				<span id="top-ud">
+					<span id="top-up"><img src="jt.png" width="40px" style='transform: rotate(180deg);margin-right: 30px;'/></span>
+				<span id="top-down"><img src="jt.png" width="40px"/></span>
+				</span>
+			</div>
+			<div id="rl">
+				<div id="xq">
+					<span>一</span>
+					<span>二</span>
+					<span>三</span>
+					<span>四</span>
+					<span>五</span>
+					<span>六</span>
+					<span>日</span>
+				</div>
+				<div id="rl-ri">
+					<div id="select">
+						
+					</div>
+					<div class="ri"></div>
+					<div class="ri"></div>
+					<div class="ri"></div>
+					<div class="ri"></div>
+					<div class="ri"></div>
+					<div class="ri"></div>
+					<div class="ri"></div>
+					<div class="ri"></div>
+					<div class="ri"></div>
+					<div class="ri"></div>
+					<div class="ri"></div>
+					<div class="ri"></div>
+					<div class="ri"></div>
+					<div class="ri"></div>
+					<div class="ri"></div>
+					<div class="ri"></div>
+					<div class="ri"></div>
+					<div class="ri"></div>
+					<div class="ri"></div>
+					<div class="ri"></div>
+					<div class="ri"></div>
+					<div class="ri"></div>
+					<div class="ri"></div>
+					<div class="ri"></div>
+					<div class="ri"></div>
+					<div class="ri"></div>
+					<div class="ri"></div>
+					<div class="ri"></div>
+					<div class="ri"></div>
+					<div class="ri"></div>
+					<div class="ri"></div>
+					<div class="ri"></div>
+					<div class="ri"></div>
+					<div class="ri"></div>
+					<div class="ri"></div>
+					<div class="ri"></div>
+					<div class="ri"></div>
+					<div class="ri"></div>
+					<div class="ri"></div>
+					<div class="ri"></div>
+					<div class="ri"></div>
+					<div class="ri"></div>
+				</div>
+			</div>
+		</div>
+	</body>
+	<script type="text/javascript">
+		toprq = document.querySelector('#top-rq')
+		rlri = document.querySelectorAll('#rl-ri .ri')
+		topup = document.querySelector("#top-up")
+		topdown = document.querySelector("#top-down")
+		function toptime() {
+			time = new Date()
+			topyear = time.getFullYear()
+			topmonth = time.getMonth() + 1
+			topdate = time.getDate()
+		}
+		toptime()
+		topup.addEventListener('click', () => {
+			topmonth -= 1
+			if(topmonth < 1) {
+				topyear -= 1
+				topmonth = 12
+			}
+			rili()
+		})
+		topdown.addEventListener('click', () => {
+			topmonth += 1
+			if(topmonth > 12) {
+				topyear += 1
+				topmonth = 1
+			}
+			rili()
+		})
+
+		function rili() {
+			if(topmonth<10){
+				toprq.innerHTML = topyear + '年0' + topmonth + '月'
+			}else{
+				toprq.innerHTML = topyear + '年' + topmonth + '月'
+			}
+			for(let i of rlri) {
+				i.innerHTML = ''
+				i.style.color = ''
+			}
+			var time = new Date()
+			year = time.setFullYear(topyear)
+			month = time.setMonth(topmonth - 1)
+			ri = time.setDate(1)
+			a = 0
+			b = 0
+			lst = new Array()
+			function pd () {
+				for(let i of rlri) {
+					function dqrq () {
+			i.style.boxShadow='inset 0px 0px 1px 3px white,inset 0px 0px 3px 6px black'
+			i.style.fontSize='25px'
+			i.style.fontWeight='inherit'
+		}
+					function mxz () {
+						i.style.boxShadow='none'
+						i.style.fontSize='30px'
+						i.fontWeight='bold'
+					}
+				let c = time.getDay()
+				if(c == 0) {
+					c = 7
+				}
+				a++
+				if(a >= c) {
+					b++
+					i.innerHTML = b
+					if(topmonth == 1 || topmonth == 3 || topmonth == 5 || topmonth == 7 || topmonth == 8 || topmonth == 10 || topmonth == 12) {
+						if(b >= 31){
+							b = 0
+						}
+						if(a >= 31 + c) {
+							i.style.color = 'gray'
+						}else{
+							let time = new Date
+							if(topyear==time.getFullYear()&&topmonth==time.getMonth()+1&&i.innerHTML==time.getDate()){
+								dqrq()
+							}else{
+								mxz()
+							}
+						}
+					}
+					if(topmonth == 4 || topmonth == 6 || topmonth == 9 || topmonth == 11) {
+						if(b >= 30) {
+							b = 0
+						}
+						if(a >= 30 + c) {
+							i.style.color = 'gray'
+						}else{
+							let time = new Date
+							if(topyear==time.getFullYear()&&topmonth==time.getMonth()+1&&i.innerHTML==time.getDate()){
+								dqrq()
+							}else{
+								mxz()
+							}
+						}
+					}
+					if(topyear % 4 == 0 && topyear % 100 != 0) {
+						if(topmonth == 2) {
+							if(b >= 29) {
+								b = 0
+							}
+							if(a >= 29 + c) {
+								i.style.color = 'gray'
+							}else{
+							let time = new Date
+							if(topyear==time.getFullYear()&&topmonth==time.getMonth()+1&&i.innerHTML==time.getDate()){
+								dqrq()
+							}else{
+								mxz()
+							}
+						}
+						}
+					} else {
+						if(topmonth == 2) {
+							if(b >= 28) {
+								b = 0
+							}
+							if(a >= 28 + c) {
+								i.style.color = 'gray'
+							}else{
+							let time = new Date
+							if(topyear==time.getFullYear()&&topmonth==time.getMonth()+1&&i.innerHTML==time.getDate()){
+								dqrq()
+							}else{
+								mxz()
+							}
+						}
+						}
+					}
+				} else {
+					if(topyear % 4 == 0 && topyear % 100 != 0){
+						if(topmonth == 1 || topmonth == 5 || topmonth == 7 || topmonth == 8 || topmonth == 10 || topmonth == 12) {
+						e = 30-a+1
+						lst[a]=e
+					}
+					if(topmonth == 3){
+						e = 29-a+1
+						lst[a]=e
+					}
+					if(topmonth == 4 || topmonth == 6 || topmonth == 9 || topmonth == 11) {
+						e = 30-a+1
+						lst[a]=e
+					}
+					if(topmonth == 2) {
+						e = 31-a+1
+						lst[a]=e
+						}
+					}else{
+						if(topmonth == 1 || topmonth == 5 || topmonth == 7 || topmonth == 8 || topmonth == 10 || topmonth == 12) {
+						e = 30-a+1
+						lst[a]=e
+					}
+					if(topmonth == 3){
+						e = 28-a+1
+						lst[a]=e
+					}
+					if(topmonth == 4 || topmonth == 6 || topmonth == 9 || topmonth == 11) {
+						e = 30-a+1
+						lst[a]=e
+					}
+					if(topmonth == 2) {
+						e = 31-a+1
+						lst[a]=e
+						}
+					}
+						i.style.color = 'gray'
+				}
+			}
+			}
+			pd()
+			lst.reverse()
+			lst.forEach((nm,ix)=>{
+				rlri[ix].innerHTML=lst[ix]
+			})
+		}
+		rili()
+		timer = document.querySelector('#timer')
+		function tim () {
+			var time = new Date()
+			var hours = time.getHours()
+			var mintues = time.getMinutes()
+			var seconds = time.getSeconds()
+			var a,b,c
+			if(hours<10){
+				a='0'+hours
+			}else{
+				a = hours
+			}
+			if(mintues<10){
+				b='0'+mintues
+			}else{
+				b=mintues
+			}
+			if(seconds<10){
+				c='0'+seconds
+			}else{
+				c=seconds
+			}
+				timer.innerHTML=a+':'+b+':'+c		
+		}
+		tim()
+		setInterval(tim,1000)
+		function slc(){
+			var slt = document.querySelector('#select')
+			var x = 0 //85px
+			var y = -85 //85px
+			var lst = new Array(42)
+			for(let i=0;i<lst.length;i++){
+				if(i%7==0){
+					x = 0
+					y+=85
+				}else{
+					x+=85
+				}
+				lst[i]={
+					block:rlri[i],
+					psx:x+'px',
+					psy:y+'px'
+				}
+			}
+			rlri.forEach((nm,ix)=>{
+				if(nm.style.fontSize=='25px'){
+					slt.style.left=lst[ix].psx
+					slt.style.top=lst[ix].psy
+				}
+			})
+			rlri.forEach((nm,ix)=>{
+				rlri[ix].addEventListener('click',()=>{
+					slt.style.left=lst[ix].psx
+					slt.style.top=lst[ix].psy
+				})
+			})
+		}
+		slc()
+	</script>
+</html>
